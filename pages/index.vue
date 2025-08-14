@@ -10,37 +10,19 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 const container = ref(null);
 
 onMounted(() => {
-  gsap.fromTo(container.value, 
-    {
-      backgroundColor: '#f59e0b'
-    },
-    {
-      backgroundColor: '#000000',
-      duration: 1,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: 'body',
-        start: '40% top',
-        end: '42% top',
-        scrub: 1
-      }
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.timeline({
+    scrollTrigger: {
+      trigger: container.value,
+      start: 'top top', // début au haut de la page
+      end: 'bottom bottom', // fin en bas de page
+      scrub: true, // synchro avec le scroll
     }
-  );
-  gsap.fromTo(container.value,
-    {
-      backgroundColor: '#000000'
-    },
-    {
-      backgroundColor: '#FEFEFE',
-      duration: 1,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: 'body',
-        start: '80% top',
-        end: '82% top',
-        scrub: 1
-      }
-    }
-  );
+  })
+    // Amber → Noir a 40%
+    .to(container.value, { backgroundColor: '#000000', duration: 0.02 }, 0.40)
+    // Noir → Blanc a 80%
+    .to(container.value, { backgroundColor: '#FEFEFE', duration: 0.02 }, 0.80);
 });
 </script>
