@@ -1,5 +1,26 @@
 @import 'tailwindcss';
 
+ @font-face {
+   font-family: "thedoctor";
+    src: url("/static/fonts/TheDoctor.woff2") format('woff2');
+   font-weight: normal;
+   font-style: normal;
+   font-display: swap;
+ }
+
+@font-face {
+  font-family: "DTGetai";
+  src: url("/static/fonts/DTGetai.woff2") format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-getai: 'DTGetai';
+  --font-doctor: 'thedoctor';
+}
+
 html {
   overflow-x: hidden;
   scrollbar-width: none;

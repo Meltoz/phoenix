@@ -1,6 +1,8 @@
 <template>
 <div ref="container" class="h-[600vh] w-screen bg-amber-500">
-  <p class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl font-bold z-10">cc</p>
+  <p class="font-doctor fixed text-[17rem] left-4/8 bottom-60 z-10">Awakening</p>
+  <p class="fixed -bottom-[5vh] left-1/2 transform -translate-x-1/2 font-bold whitespace-nowrap text-[17vw] font-getai">PHOENIX</p>
+  <img src="/images/phoenix.png" class="fixed h-4/5 left-7/12 -translate-x-1/2 mix-blend-difference" />
 </div>
 </template>
 <script setup lang="ts">
@@ -9,20 +11,23 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const container = ref(null);
 
+useHead({
+  title: 'Phoenix | B-Week Entertainment'
+})
+
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger);
-
-  gsap.timeline({
+  const tl = gsap.timeline({
     scrollTrigger: {
       trigger: container.value,
-      start: 'top top', // début au haut de la page
-      end: 'bottom bottom', // fin en bas de page
-      scrub: true, // synchro avec le scroll
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: true
     }
-  })
-    // Amber → Noir a 40%
-    .to(container.value, { backgroundColor: '#000000', duration: 0.02 }, 0.40)
-    // Noir → Blanc a 80%
-    .to(container.value, { backgroundColor: '#FEFEFE', duration: 0.02 }, 0.80);
+  });
+
+  tl.to(container.value, { backgroundColor: '#000000', color:'#FFFFFF' , duration: 0.5 }, 0.40)
+    .to(container.value, { backgroundColor: '#FEFEFE', color:'#000000' , duration: 0.5 }, 0.80);
+
 });
 </script>
