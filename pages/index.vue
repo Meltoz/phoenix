@@ -10,6 +10,8 @@ const text2 = ref(null);
 const img = ref(null);
 const listen = ref(null);
 const button = ref(null);
+const caption1 =ref(null);
+const caption2 =ref(null);
 
 const imageTrails = ref([]);
 const isEffectActive = ref(false);
@@ -21,6 +23,18 @@ const imageArray = [
 const currentImageIndex = ref(0);
 const lastImageTime = ref(0);
 const imageInterval = 100; // ms entre chaque image
+
+const caption1Texts = [
+  'INITIALIZING SINGLE_01 : <span class="font-bold">[ AWAKENING ]</span>',
+  'ARTIST ID — DATA RETRIEVED',
+  'MERCH DATABASE — ONLINE'
+];
+
+const caption2Texts = [
+  'CONTINUE SEQUENCE — <span class="font-bold">[ SCROLL ]</span> TO PROCEED',
+  'DEFINING AUDIO CORE — Synthwave rock',
+  'TRANSMISSION LINKS — CONNECT'
+];
 
 useHead({
   title: 'Phoenix | B-Week Entertainment',
@@ -66,6 +80,38 @@ onMounted(() => {
     .to(button.value, {opacity: 0, duration: 0.1}, 0.78)
 
   tl.fromTo(listen.value, {opacity:0}, {opacity: 1, duration:0.1}, 0.8)
+
+  // Animation caption1 et caption2 avec changement bidirectionnel
+  tl.to(caption1.value, { opacity: 1, duration: 0.1 }, 0)
+    .to(caption2.value, { opacity: 1, duration: 0.1 }, 0);
+
+  // Fonction pour gérer le changement de texte selon la progression
+  const updateCaptionTexts = (progress) => {
+    let caption1Index, caption2Index;
+    
+    if (progress <= 0.35) {
+      caption1Index = 0;
+      caption2Index = 0;
+    } else if (progress <= 0.85) {
+      caption1Index = 1;
+      caption2Index = 1;
+    } else {
+      caption1Index = 2;
+      caption2Index = 2;
+    }
+    
+    if (caption1.value) caption1.value.innerHTML = caption1Texts[caption1Index];
+    if (caption2.value) caption2.value.innerHTML = caption2Texts[caption2Index];
+  };
+
+  // Ajouter un listener pour la progression du scroll
+  tl.eventCallback("onUpdate", () => {
+    const progress = tl.progress();
+    updateCaptionTexts(progress);
+  });
+
+  // Initialiser les textes
+  updateCaptionTexts(0);
 });
 
 const activateImageEffect = () => {
@@ -177,10 +223,10 @@ const activateImageEffect = () => {
       src="/images/phoenix_negatif.png"
       class="fixed h-4/5 top-10 left-7/12 -translate-x-1/2 mix-blend-difference z-10"
     />
-    <p class="text-xs font-exat -rotate-90 fixed z-10 top-40 -left-10">
+    <p ref="caption1" class="text-xs font-exat -rotate-90 fixed z-10 top-40 -left-10">
       INITIALIZING SINGLE_01:<span class="font-bold">[AWAKENING]</span>
     </p>
-    <p class="text-xs font-exat -rotate-90 fixed z-10 top-72 left-4 uppercase">
+    <p ref="caption2" class="text-xs font-exat -rotate-90 fixed z-10 top-72 left-4 uppercase">
       CONTINUE sequence - <span class="font-bold">[SCROLL]</span> to proceed
     </p>
 
