@@ -89,10 +89,10 @@ onMounted(() => {
   const updateCaptionTexts = (progress) => {
     let caption1Index, caption2Index;
     
-    if (progress <= 0.35) {
+    if (progress <= 0.34) {
       caption1Index = 0;
       caption2Index = 0;
-    } else if (progress <= 0.85) {
+    } else if (progress <= 0.93) {
       caption1Index = 1;
       caption2Index = 1;
     } else {
@@ -115,7 +115,6 @@ onMounted(() => {
 });
 
 const activateImageEffect = () => {
-  console.log('activate image');
   if (isEffectActive.value) return;
 
   isEffectActive.value = true;
@@ -149,7 +148,7 @@ const activateImageEffect = () => {
       { scale: 1, duration: 0.3, ease: "back.out(1.7)" }
     );
 
-    if (imageTrails.value.length > 5) {
+    if (imageTrails.value.length > 12) {
       const oldImage = imageTrails.value.shift();
       gsap.to(oldImage, {
         opacity: 0,
@@ -206,7 +205,7 @@ const activateImageEffect = () => {
 };
 </script>
 <template>
-  <div ref="container" class="h-[600vh] w-screen bg-amber-500">
+  <div ref="container" class="h-[600vh] w-screen bg-[#C96624]">
     <p class="font-exat text-base fixed right-16 top-[30rem] z-10">© B-WEEK Entertainment</p>
     <p class="font-doctor fixed text-[17rem] right-36 bottom-48 z-30">Awakening</p>
     <p
@@ -259,8 +258,8 @@ const activateImageEffect = () => {
         </div>
       </div>
     </div>
-    <div ref="external" class="bg-amber-400 left-20 fixed h-[90vh] w-full bottom-0">
-      <div ref="interior" class="bg-amber-300 left-32 fixed h-[90vh] w-full -bottom-10"></div>
+    <div ref="external" class="bg-[#D56E26] left-20 fixed h-[90vh] w-full bottom-0">
+      <div ref="interior" class="bg-[#DC7B38] left-32 fixed h-[90vh] w-full -bottom-10"></div>
     </div>
   </div>
 </template>
